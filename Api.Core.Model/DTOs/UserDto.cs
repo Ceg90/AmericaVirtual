@@ -1,11 +1,24 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using Api.Core.Model.Entities;
+using System.ComponentModel.DataAnnotations;
 
-namespace Api.Core.Model.Entities
+namespace Api.Core.Model.DTOs
 {
-    [Table("User")]
-    public class User : BaseEntity
+    public class UserDto : BaseDto
     {
+        public UserDto()
+        {
+        }
+
+        public UserDto(User entity)
+        {
+            UserId = entity.UserId;
+            Email = entity.Email;
+            Password = entity.Password;
+            FirstName = entity.FirstName;
+            LastName = entity.LastName;
+            Address = entity.Address;
+            PhoneNumber = entity.PhoneNumber;
+        }
         [Required]
         public long UserId { get; set; }
 

@@ -11,6 +11,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.OpenApi.Models;
+using Api.Core.Model.Services;
+using Api.Core.Services;
 
 namespace Api.Controllers
 {
@@ -29,11 +31,9 @@ namespace Api.Controllers
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                app.UseDatabaseErrorPage();
             }
             else
             {
-                app.UseExceptionHandler("/Home/Error");
                 app.UseHsts();
             }
 
@@ -69,12 +69,12 @@ namespace Api.Controllers
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
-            services.AddDbContext<AmericaVirtualDbContext>(options =>
+            services.AddDbContext<SqlDataAccess>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
 
             services.AddDefaultIdentity<IdentityUser>()
-                .AddEntityFrameworkStores<AmericaVirtualDbContext>();
+                .AddEntityFrameworkStores<SqlDataAccess>();
 
             services.AddMemoryCache();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
@@ -85,9 +85,12 @@ namespace Api.Controllers
             });
 
             //Add configuration.
+            services.AddScoped<ISqlDataAccess, SqlDataAccess>();
             services.AddScoped<IUnitOfWork, UnitOfWork>();
 
             //Add services.
+            services.AddScoped<IUserService, UserService>();
+            services.AddScoped<IProductService, ProductService>();
 
             //Add repositories.
             services.AddScoped<IProductRepository, ProductRepository>();

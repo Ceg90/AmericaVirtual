@@ -4,15 +4,18 @@ namespace Api.Core.Model.Data
 {
     public interface IRepository<TEntity> where TEntity : BaseEntity
     {
-        void Add(TEntity entity);
+        object Add(TEntity entity);
 
-        void Update(TEntity entity);
-
-        void Remove(TEntity entity);
-
-        IEnumerable<TEntity> GetAll();
+        void AddRange(IEnumerable<TEntity> entity);
 
         TEntity GetById(long id);
 
+        Dictionary<string, object> GetParamForRange(string storedProcedureName, TEntity entity);
+
+        void Remove(long id);
+
+        void Update(TEntity entity);
+
+        void UpdateRange(IEnumerable<TEntity> entities);
     }
 }

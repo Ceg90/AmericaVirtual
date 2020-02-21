@@ -5,5 +5,6 @@ namespace Api.Core.Model.Repositories
 {
     public interface IUserRepository : IRepository<User>
     {
+        User GetUserInformationByEmail(string email);
     }
 }
