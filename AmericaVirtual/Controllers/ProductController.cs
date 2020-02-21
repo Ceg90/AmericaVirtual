@@ -1,9 +1,9 @@
-﻿using Api.Core.Model.DTOs;
-using Api.Core.Model.Services;
+﻿using AmericaVirtual.Model.DTOs;
+using AmericaVirtual.Model.Services;
 using Microsoft.AspNetCore.Mvc;
 using System.Data.SqlClient;
 
-namespace Api.Controllers.Controllers
+namespace AmericaVirtual.Controllers
 {
     [Route("[controller]")]
     public class ProductController : Controller

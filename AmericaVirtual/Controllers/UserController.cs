@@ -1,8 +1,8 @@
-﻿using Api.Core.Model.DTOs;
-using Api.Core.Model.Services;
+﻿using AmericaVirtual.Model.DTOs;
+using AmericaVirtual.Model.Services;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Api.Controllers.Controllers
+namespace AmericaVirtual.Controllers
 {
     [Route("[controller]")]
     public class UserController : Controller
@@ -26,16 +26,29 @@ namespace Api.Controllers.Controllers
         }
 
         [HttpGet]
-        public ActionResult<ProductDto> LogIn(string email)
+        public ActionResult<UserDto> LogIn(string email, string password)
         {
-            return Ok(service.GetUserInformationByEmail(email));
+            return Ok(service.GetUserInformationByEmail(email, password));
+        }
+
+        [HttpHead]
+        public IActionResult LogOut(int userId)
+        {
+            service.LogOut(userId);
+            return Ok();
         }
 
         [HttpDelete]
-        public IActionResult RemoveUser(long userId)
+        public IActionResult RemoveUser(int userId)
         {
             service.RemoveUser(userId);
             return Ok();
+        }
+
+        [HttpPost]
+        public ActionResult<int> UserPurchase(int userId, int productId)
+        {
+            return Ok(service.UserPurchase(userId, productId));
         }
 
         [HttpPut]

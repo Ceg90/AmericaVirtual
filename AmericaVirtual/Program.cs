@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 
-namespace Api.Controllers
+namespace AmericaVirtual
 {
     public class Program
     {

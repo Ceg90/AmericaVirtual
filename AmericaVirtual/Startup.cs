@@ -1,7 +1,7 @@
-﻿using Api.Core.Model.Data;
-using Api.Core.Model.Repositories;
-using Api.Data.Repositories;
-using Api.Data.DataAccess;
+﻿using AmericaVirtual.Data;
+using AmericaVirtual.Model.Repositories;
+using AmericaVirtual.Data.Repositories;
+using AmericaVirtual.DataAccess;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -11,10 +11,10 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.OpenApi.Models;
-using Api.Core.Model.Services;
-using Api.Core.Services;
+using AmericaVirtual.Model.Services;
+using AmericaVirtual.Core.Services;
 
-namespace Api.Controllers
+namespace AmericaVirtual
 {
     public class Startup
     {
@@ -43,12 +43,7 @@ namespace Api.Controllers
 
             app.UseAuthentication();
 
-            app.UseMvc(routes =>
-            {
-                routes.MapRoute(
-                    name: "default",
-                    template: "{controller=Home}/{action=Index}/{id?}");
-            });
+            app.UseMvc();
 
             app.UseSwagger();
 
@@ -95,6 +90,8 @@ namespace Api.Controllers
             //Add repositories.
             services.AddScoped<IProductRepository, ProductRepository>();
             services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<IUserActionsRepository, UserActionsRepository>();
+            services.AddScoped<IUserPurchasesRepository, UserPurchasesRepository>();
         }
     }
 }
